@@ -1,13 +1,16 @@
 import React from 'react'
-import Header from './components/Header'
+import Home from './components/Home'
 import Footer from './components/Footer'
+import Nav from './components/Nav'
+
 
 function App() {
   return (
-  <>
-    <Header></Header>
-    <Footer></Footer>
-  </>
+    <>
+      <Nav></Nav>
+      <Home></Home>
+      <Footer></Footer>
+    </>
   )
 }
 
