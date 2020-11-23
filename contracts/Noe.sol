@@ -6,8 +6,11 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Noe is ERC721 {
+    
+    enum Animal {dog, cat, ferret}
     // Structs
 constructor() public ERC721("Noe", "NOE") {}
+
     // Structure membres
 
     struct Member {
