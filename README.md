@@ -12,6 +12,12 @@ yarn install
 yarn add @chakra-ui/core@next framer-motion focus-visible
 ```
 
+- Openzeppelin contracts
+
+```
+npm install @openzeppelin/contracts
+```
+
 # Project Noé
 
 ## - Introduction
