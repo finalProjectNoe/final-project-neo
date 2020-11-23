@@ -1,17 +1,10 @@
 import React from 'react'
 import { Button, Box } from '@chakra-ui/core'
-import { extendTheme, Grid, GridItem } from "@chakra-ui/react"
+import { Grid, GridItem } from "@chakra-ui/react"
 
-const theme = extendTheme({
-    TextStyles: {
-        Button: 'uppercase'
-
-
-    }
-
-})
 
 function Nav() {
+
     return (
         <Box py={3} px={150} >
             <Grid templateColumns="repeat(2, 1fr)" gap={6}>
@@ -21,12 +14,12 @@ function Nav() {
                 </Button>
                 </GridItem>
                 <GridItem ml='auto' >
-                    <Button mr={5} variant="outline">
+                    <Button colorScheme="teal" textTransform='uppercase' mr={5} variant="outline">
                         espace particulier
                 </Button>
 
-                    <Button variant="outline">
-                        espace veterinaire
+                    <Button colorScheme="teal" textTransform='uppercase' variant="outline">
+                        espace vétérinaire
                 </Button>
                 </GridItem>
             </Grid>
