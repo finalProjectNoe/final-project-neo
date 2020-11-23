@@ -99,9 +99,9 @@ contract Noe is ERC721 {
 
     // Events
 
-    event memberCreated(address _address);
+    event MemberCreated(address _address);
 
-    event veterinaryCreated(address _address);
+    event VeterinaryCreated(address _address);
 
     // Function
 
@@ -124,7 +124,7 @@ contract Noe is ERC721 {
 
         registeredMembers[msg.sender] = true;
 
-        emit memberCreated(msg.sender);
+        emit MemberCreated(msg.sender);
 
         return registeredMembers[msg.sender];
     }
@@ -142,7 +142,7 @@ contract Noe is ERC721 {
         
         registerdVeterinary[msg.sender] = true;
         
-        emit veterinaryCreated(msg.sender);
+        emit VeterinaryCreated(msg.sender);
         
         return registerdVeterinary[msg.sender];
     }
