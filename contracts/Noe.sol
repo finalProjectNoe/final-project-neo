@@ -129,58 +129,25 @@ contract Noe is ERC721 {
         return registeredMembers[msg.sender];
     }
 
-    function createVeterinary(
-        string memory _firtName,
-        string memory _lastName,
-        address _veterinaryAddress,
-        string memory _postalAddress,
-        uint256 _postalCode,
-        string memory _city,
-        bool _diploma
-    ) public isSuperAdmin() returns (bool) {
-        veterinary[msg.sender] = Veterinary({
-            firtName: _firtName,
-            lastName: _lastName,
-            veterinaryAddress: _veterinaryAddress,
-            postalAddress: _postalAddress,
-            postalCode: _postalCode,
-            city: _city,
-            diploma: _diploma
+    function createVeterinary(string memory _firtName, string memory _lastName, address _veterinaryAddress, string memory _postalAddress,  uint256 _postalCode, string memory _city) public returns(bool) {
+         veterinary[msg.sender] = Veterinary({
+            firtName : _firtName,
+            lastName : _lastName,
+            veterinaryAddress : _veterinaryAddress,
+            postalAddress : _postalAddress,
+            postalCode : _postalCode,
+            city : _city,
+            diploma : false
         });
-
-        registeredVeterinary[msg.sender] = true;
-
+        
+        registerdVeterinary[msg.sender] = true;
+        
         emit veterinaryCreated(msg.sender);
-
-        return registeredVeterinary[msg.sender];
+        
+        return registerdVeterinary[msg.sender];
     }
-
-    function createVeterinary(
-        string memory _firtName,
-        string memory _lastName,
-        address _veterinaryAddress,
-        string memory _postalAddress,
-        uint256 _postalCode,
-        string memory _city
-    ) public returns (bool) {
-        veterinary[msg.sender] = Veterinary({
-            firtName: _firtName,
-            lastName: _lastName,
-            veterinaryAddress: _veterinaryAddress,
-            postalAddress: _postalAddress,
-            postalCode: _postalCode,
-            city: _city,
-            diploma: false
-        });
-
-        registeredVeterinary[msg.sender] = true;
-
-        emit veterinaryCreated(msg.sender);
-
-        return registeredVeterinary[msg.sender];
-    }
-
-    function approveVeterinary(address _addr) public isSuperAdmin {
+    
+    function approveVeterinary (address _addr) public isSuperAdmin {
         veterinary[_addr].diploma = true;
     }
 }
