@@ -9,7 +9,8 @@ yarn install
 - Chakra ui install
 
 ```
-yarn add @chakra-ui/core@next framer-motion focus-visible
+yarn add @chakra-ui/react @emotion/react @emotion/styled framer-motion
+
 ```
 
 - Openzeppelin contracts
