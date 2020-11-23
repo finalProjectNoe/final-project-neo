@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Noe is ERC721 {
+<<<<<<< HEAD
     // Adresse de la personne qui déploie
 
     address payable private _superAdmin;
@@ -17,6 +18,11 @@ contract Noe is ERC721 {
     }
 
     // Structs
+=======
+    
+    enum Animals {dog, cat, ferret}
+    // Structs
+>>>>>>> 745b7444e3ad8332199f7a9c9bbde0850ce884d6
 
     // Structure membres
 
