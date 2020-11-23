@@ -49,7 +49,7 @@ contract Noe is ERC721 {
         string lastName;
         address veterinaryAddress;
         string postalAddress;
-        uint8 postalCode;
+        uint256 postalCode;
         string city;
         bool diploma;
     }
@@ -64,9 +64,9 @@ contract Noe is ERC721 {
 
     mapping(address => Veterinary) public veterinary;
 
-    mapping(address => bool) public registerdMembers;
+    mapping(address => bool) public registeredMembers;
 
-    mapping(address => bool) public registerdVeterinary;
+    mapping(address => bool) public registeredVeterinary;
 
     // Fonction Modifier
 
@@ -81,14 +81,14 @@ contract Noe is ERC721 {
     // Check si le member n'est enregisté
 
     modifier isRegistered() {
-        require(registerdMembers[msg.sender], "Vous n'étes pas enregisté");
+        require(registeredMembers[msg.sender], "Vous n'étes pas enregisté");
         _;
     }
 
     // Check si le member est enregisté
 
     modifier notAlreadyRegistered() {
-        require(!registerdMembers[msg.sender], "Vous étes deja enregisté");
+        require(!registeredMembers[msg.sender], "Vous étes deja enregisté");
         _;
     }
 
@@ -124,11 +124,11 @@ contract Noe is ERC721 {
             city: _city
         });
 
-        registerdMembers[msg.sender] = true;
+        registeredMembers[msg.sender] = true;
 
         emit memberCreated(msg.sender);
 
-        return registerdMembers[msg.sender];
+        return registeredMembers[msg.sender];
     }
 
     function createVeterinary(
@@ -139,6 +139,7 @@ contract Noe is ERC721 {
         uint256 _postalCode,
         string memory _city,
         bool _diploma
+
     ) public isSuperAdmin() returns (bool) {
         veterinary[msg.sender] = Veterinary({
             firtName: _firtName,
@@ -150,10 +151,10 @@ contract Noe is ERC721 {
             diploma: _diploma
         });
 
-        registerdVeterinary[msg.sender] = true;
+        registeredVeterinary[msg.sender] = true;
 
         emit veterinaryCreated(msg.sender);
 
-        return registerdVeterinary[msg.sender];
+        return registeredVeterinary[msg.sender];
     }
 }
