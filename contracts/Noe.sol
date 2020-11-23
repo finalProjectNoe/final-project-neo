@@ -6,8 +6,18 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Noe is ERC721 {
+    // Adresse de la personne qui déploie
+
+    address payable private _superAdmin;
+
+    // Constucteur
+
+    constructor(address payable superAdmin) public ERC721("Noe", "NOE") {
+        _superAdmin = superAdmin;
+    }
+
     // Structs
-constructor() public ERC721("Noe", "NOE") {}
+
     // Structure membres
 
     struct Member {
@@ -36,7 +46,7 @@ constructor() public ERC721("Noe", "NOE") {}
         string lastName;
         address veterinaryAddress;
         string postalAddress;
-        uint8 postalCode;
+        uint256 postalCode;
         string city;
         bool diploma;
     }
@@ -47,25 +57,36 @@ constructor() public ERC721("Noe", "NOE") {}
 
     mapping(address => Member) public member;
 
-    mapping(uint256 => Animal) public animal;
+    mapping(address => Animal) public animal;
 
-    mapping(uint256 => Veterinary) public veterinary;
+    mapping(address => Veterinary) public veterinary;
 
-    mapping(address => bool) public registerdMembers;
+    mapping(address => bool) public registeredMembers;
+
+    mapping(address => bool) public registeredVeterinary;
+
+    // Enum
+
+    enum Animals {dog, cat, ferret}
 
     // Fonction Modifier
+
+    modifier isSuperAdmin() {
+        require(msg.sender == _superAdmin, "Vous n'avez pas le droit d'utiliser cette fonction");
+        _;
+    }
 
     // Check si le member n'est enregisté
 
     modifier isRegistered() {
-        require(registerdMembers[msg.sender], "Vous n'étes pas enregisté");
+        require(registeredMembers[msg.sender], "Vous n'étes pas enregisté");
         _;
     }
 
     // Check si le member est enregisté
 
     modifier notAlreadyRegistered() {
-        require(!registerdMembers[msg.sender], "Vous étes deja enregisté");
+        require(!registeredMembers[msg.sender], "Vous étes deja enregisté");
         _;
     }
 
@@ -78,11 +99,9 @@ constructor() public ERC721("Noe", "NOE") {}
 
     // Events
 
-    event memberCreated(address _address);
+    event MemberCreated(address _address);
 
-    // Constructor
-
-    constructor() public {}
+    event VeterinaryCreated(address _address);
 
     // Function
 
@@ -103,10 +122,32 @@ constructor() public ERC721("Noe", "NOE") {}
             city: _city
         });
 
-        registerdMembers[msg.sender] = true;
+        registeredMembers[msg.sender] = true;
 
-        emit memberCreated(msg.sender);
+        emit MemberCreated(msg.sender);
 
-        return registerdMembers[msg.sender];
+        return registeredMembers[msg.sender];
+    }
+
+    function createVeterinary(string memory _firtName, string memory _lastName, address _veterinaryAddress, string memory _postalAddress,  uint256 _postalCode, string memory _city) public returns(bool) {
+         veterinary[msg.sender] = Veterinary({
+            firtName : _firtName,
+            lastName : _lastName,
+            veterinaryAddress : _veterinaryAddress,
+            postalAddress : _postalAddress,
+            postalCode : _postalCode,
+            city : _city,
+            diploma : false
+        });
+        
+        registerdVeterinary[msg.sender] = true;
+        
+        emit VeterinaryCreated(msg.sender);
+        
+        return registerdVeterinary[msg.sender];
+    }
+    
+    function approveVeterinary (address _addr) public isSuperAdmin {
+        veterinary[_addr].diploma = true;
     }
 }
