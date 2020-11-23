@@ -27,6 +27,7 @@ contract Noe is ERC721 {
         string postalAddress;
         uint256 postalCode;
         string city;
+        bool isMember;
     }
 
     // Structure animales
@@ -49,6 +50,7 @@ contract Noe is ERC721 {
         uint256 postalCode;
         string city;
         bool diploma;
+        bool isVeterinary;
     }
 
     // Variables de statues
@@ -65,16 +67,32 @@ contract Noe is ERC721 {
 
     mapping(address => bool) public registeredVeterinary;
 
+    mapping(address => bool) public approveVet;
+
     // Enum
 
     enum Animals {dog, cat, ferret}
 
     // Fonction Modifier
 
+    // Check si c'est le super admin
+
     modifier isSuperAdmin() {
         require(msg.sender == _superAdmin, "Vous n'avez pas le droit d'utiliser cette fonction");
         _;
     }
+
+    // Check si le membre est enregistré
+
+    modifier isMember(address _addr) {
+        require(member[_addr].isMember == true, "Vous n'étes pas membre");
+        _;}
+    
+    // Check si le vétérinaire est enregistré
+
+    modifier isVeterinary(address _addr) {
+        require(veterinary[_addr].isVeterinary == true, "Vous n'étes pas vétérinaire");
+        _;}
 
     // Check si le member n'est enregisté
 
@@ -102,6 +120,8 @@ contract Noe is ERC721 {
     event MemberCreated(address _address);
 
     event VeterinaryCreated(address _address);
+
+    event VeterinaryApprove(address _address);
 
     // Function
 
@@ -147,7 +167,17 @@ contract Noe is ERC721 {
         return registerdVeterinary[msg.sender];
     }
     
-    function approveVeterinary (address _addr) public isSuperAdmin {
+    function approveVeterinary (address _addr) public isSuperAdmin returns(bool) {
         veterinary[_addr].diploma = true;
+        
+        approveVet[msg.sender] = true;
+        
+        emit VeterinaryApprove(msg.sender);
+        
+        return approveVet[msg.sender];
     }
+    
+    function connectionMember (address _addr) public isMember(_addr) {}
+    
+    function connectionVeterinary (address _addr) public isVeterinary(_addr) {}
 }
