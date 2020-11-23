@@ -9,5 +9,24 @@
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
     "framer-motion": "^2.9.4"
+  },
+  "devDependencies": {
+    "@openzeppelin/test-environment": "^0.1.6",
+    "@openzeppelin/test-helpers": "^0.5.9",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "chai": "^4.2.0",
+    "eslint": "^7.14.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-mocha-no-only": "^1.1.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-standard": "^5.0.0",
+    "mocha": "^8.2.1",
+    "prettier": "^2.2.0",
+    "prettier-plugin-solidity": "^1.0.0-beta.1",
+    "solhint": "^3.3.2"
   }
 }

@@ -72,10 +72,7 @@ contract Noe is ERC721 {
     // Fonction Modifier
 
     modifier isSuperAdmin() {
-        require(
-            msg.sender == _superAdmin,
-            "Vous n'avez pas le droit d'utiliser cette fonction"
-        );
+        require(msg.sender == _superAdmin, "Vous n'avez pas le droit d'utiliser cette fonction");
         _;
     }
 
@@ -176,11 +173,11 @@ contract Noe is ERC721 {
             diploma: false
         });
 
-        registerdVeterinary[msg.sender] = true;
+        registeredVeterinary[msg.sender] = true;
 
         emit veterinaryCreated(msg.sender);
 
-        return registerdVeterinary[msg.sender];
+        return registeredVeterinary[msg.sender];
     }
 
     function approveVeterinary(address _addr) public isSuperAdmin {
