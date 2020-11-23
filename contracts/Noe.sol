@@ -60,9 +60,9 @@ contract Noe is ERC721 {
 
     mapping(address => Member) public member;
 
-    mapping(uint256 => Animal) public animal;
+    mapping(address => Animal) public animal;
 
-    mapping(uint256 => Veterinary) public veterinary;
+    mapping(address => Veterinary) public veterinary;
 
     mapping(address => bool) public registerdMembers;
 
