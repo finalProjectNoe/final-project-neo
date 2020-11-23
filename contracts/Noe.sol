@@ -6,8 +6,18 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Noe is ERC721 {
+    // Adresse de la personne qui déploie
+
+    address payable private _superAdmin;
+
+    // Constucteur
+
+    constructor(address payable superAdmin) public ERC721("Noe", "NOE") {
+        _superAdmin = superAdmin;
+    }
+
     // Structs
-constructor() public ERC721("Noe", "NOE") {}
+
     // Structure membres
 
     struct Member {
@@ -53,7 +63,17 @@ constructor() public ERC721("Noe", "NOE") {}
 
     mapping(address => bool) public registerdMembers;
 
+    mapping(address => bool) public registerdVeterinary;
+
     // Fonction Modifier
+
+    modifier isSuperAdmin() {
+        require(
+            msg.sender == _superAdmin,
+            "Vous n'avez pas le droit d'utiliser cette fonction"
+        );
+        _;
+    }
 
     // Check si le member n'est enregisté
 
@@ -80,9 +100,7 @@ constructor() public ERC721("Noe", "NOE") {}
 
     event memberCreated(address _address);
 
-    // Constructor
-
-    constructor() public {}
+    event veterinaryCreated(address _address);
 
     // Function
 
@@ -108,5 +126,31 @@ constructor() public ERC721("Noe", "NOE") {}
         emit memberCreated(msg.sender);
 
         return registerdMembers[msg.sender];
+    }
+
+    function createVeterinary(
+        string memory _firtName,
+        string memory _lastName,
+        address _veterinaryAddress,
+        string memory _postalAddress,
+        uint256 _postalCode,
+        string memory _city,
+        bool _diploma
+    ) public isSuperAdmin() returns (bool) {
+        veterinary[msg.sender] = Veterinary({
+            firtName: _firtName,
+            lastName: _lastName,
+            veterinaryAddress: _veterinaryAddress,
+            postalAddress: _postalAddress,
+            postalCode: _postalCode,
+            city: _city,
+            diploma: _diploma
+        });
+
+        registerdVeterinary[msg.sender] = true;
+
+        emit veterinaryCreated(msg.sender);
+
+        return registerdVeterinary[msg.sender];
     }
 }
