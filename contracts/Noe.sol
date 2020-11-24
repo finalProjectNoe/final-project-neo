@@ -21,7 +21,7 @@ contract Noe is ERC721 {
     // Structure membres
 
     struct Member {
-        string firtName;
+        string firstName;
         string lastName;
         address userAddress;
         string postalAddress;
@@ -43,7 +43,7 @@ contract Noe is ERC721 {
     // Structure vétérinaire
 
     struct Veterinary {
-        string firtName;
+        string firstName;
         string lastName;
         address veterinaryAddress;
         string postalAddress;
@@ -128,7 +128,7 @@ contract Noe is ERC721 {
     // Function
 
     function createMember(
-        string memory _firtName,
+        string memory _firstName,
         string memory _lastName,
         address _userAddress,
         string memory _postalAddress,
@@ -136,7 +136,7 @@ contract Noe is ERC721 {
         string memory _city
     ) public notAlreadyRegistered() returns (bool) {
         member[msg.sender] = Member({
-            firtName: _firtName,
+            firstName: _firstName,
             lastName: _lastName,
             userAddress: _userAddress,
             postalAddress: _postalAddress,
@@ -152,7 +152,7 @@ contract Noe is ERC721 {
     }
 
     function createVeterinary(
-        string memory _firtName,
+        string memory _firstName,
         string memory _lastName,
         address _veterinaryAddress,
         string memory _postalAddress,
@@ -160,7 +160,7 @@ contract Noe is ERC721 {
         string memory _city
     ) public returns (bool) {
         veterinary[msg.sender] = Veterinary({
-            firtName: _firtName,
+            firstName: _firstName,
             lastName: _lastName,
             veterinaryAddress: _veterinaryAddress,
             postalAddress: _postalAddress,
