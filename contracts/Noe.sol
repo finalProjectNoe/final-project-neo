@@ -86,13 +86,15 @@ contract Noe is ERC721 {
 
     modifier isMember(address _addr) {
         require(member[_addr].isMember == true, "Vous n'étes pas membre");
-        _;}
-    
+        _;
+    }
+
     // Check si le vétérinaire est enregistré
 
     modifier isVeterinary(address _addr) {
         require(veterinary[_addr].isVeterinary == true, "Vous n'étes pas vétérinaire");
-        _;}
+        _;
+    }
 
     // Check si le member n'est enregisté
 
@@ -149,35 +151,42 @@ contract Noe is ERC721 {
         return registeredMembers[msg.sender];
     }
 
-    function createVeterinary(string memory _firtName, string memory _lastName, address _veterinaryAddress, string memory _postalAddress,  uint256 _postalCode, string memory _city) public returns(bool) {
-         veterinary[msg.sender] = Veterinary({
-            firtName : _firtName,
-            lastName : _lastName,
-            veterinaryAddress : _veterinaryAddress,
-            postalAddress : _postalAddress,
-            postalCode : _postalCode,
-            city : _city,
-            diploma : false
+    function createVeterinary(
+        string memory _firtName,
+        string memory _lastName,
+        address _veterinaryAddress,
+        string memory _postalAddress,
+        uint256 _postalCode,
+        string memory _city
+    ) public returns (bool) {
+        veterinary[msg.sender] = Veterinary({
+            firtName: _firtName,
+            lastName: _lastName,
+            veterinaryAddress: _veterinaryAddress,
+            postalAddress: _postalAddress,
+            postalCode: _postalCode,
+            city: _city,
+            diploma: false
         });
-        
-        registerdVeterinary[msg.sender] = true;
-        
+
+        registeredVeterinary[msg.sender] = true;
+
         emit VeterinaryCreated(msg.sender);
-        
-        return registerdVeterinary[msg.sender];
+
+        return registeredVeterinary[msg.sender];
     }
-    
-    function approveVeterinary (address _addr) public isSuperAdmin returns(bool) {
+
+    function approveVeterinary(address _addr) public isSuperAdmin returns (bool) {
         veterinary[_addr].diploma = true;
-        
+
         approveVet[msg.sender] = true;
-        
+
         emit VeterinaryApprove(msg.sender);
-        
+
         return approveVet[msg.sender];
     }
-    
-    function connectionMember (address _addr) public isMember(_addr) {}
-    
-    function connectionVeterinary (address _addr) public isVeterinary(_addr) {}
+
+    function connectionMember(address _addr) public isMember(_addr) {}
+
+    function connectionVeterinary(address _addr) public isVeterinary(_addr) {}
 }
